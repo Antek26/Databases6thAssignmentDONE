@@ -33,11 +33,14 @@ public class DBmanager {
 
         try {
             if (connection == null) {
-                statement = connection.createStatement();
-
-                statement.executeQuery("USE world;");
+                makeConnection();
             }
+
+            statement = connection.createStatement();
+
+            statement.executeQuery("USE world;"); //here we say the database uses world, so the compiler doesn't need to know that in the .properties file
         }
+
         catch (SQLException se)
         {
             se.printStackTrace();
@@ -74,8 +77,14 @@ public class DBmanager {
             String db_params = props.getProperty("jdbc.db_params");
             String username = props.getProperty("jdbc.username");
             String password = props.getProperty("jdbc.password");
+            System.out.println(db_url);
             System.out.println(db_params);
+            System.out.println(username);
+            System.out.println(password);
+
+
             connection = DriverManager.getConnection(db_url + db_params, username, password);
+
         }
         catch (SQLException se)
         {
